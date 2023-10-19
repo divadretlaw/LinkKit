@@ -14,15 +14,15 @@ extension URL {
     /// Creates a App Store URL instance from the provided data.
     ///
     /// - Parameters:
-    ///   - appleMaps: The App Store Parameters. See ``AppStoreParameters``.
-    ///   - preferUniversalLink: Wheter to create the URL using the universal link or url scheme. Defaults to `false`.
+    ///   - parameters: The App Store Parameters. See ``AppStoreParameters``.
+    ///   - preferUniversalLink: Whether to create the URL using the universal link or url scheme. Defaults to `false`.
     public static func appStore(parameters: AppStoreParameter, preferUniversalLink: Bool = false) -> URL {
         if preferUniversalLink {
             // swiftlint:disable:next force_unwrapping
-            return URL(string: "https://apps.apple.com/app/apple-store/\(parameters.description)")!
+            return URL(string: "https://apps.apple.com/app/\(parameters.description)")!
         } else {
             // swiftlint:disable:next force_unwrapping
-            return URL(string: "itms-apps://apps.apple.com/app/apple-store/\(parameters.description)")!
+            return URL(string: "itms-apps://apps.apple.com/app/\(parameters.description)")!
         }
     }
 }

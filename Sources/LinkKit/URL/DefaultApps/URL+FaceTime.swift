@@ -20,8 +20,8 @@ extension URL {
             audio ? "audio" : nil,
             prompt ? "prompt" : nil
         ]
-            .compactMap { $0 }
-            .joined(separator: "-")
+        .compactMap { $0 }
+        .joined(separator: "-")
         
         // swiftlint:disable:next force_unwrapping
         return URL(string: "\(scheme)://\(user.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? user)")!

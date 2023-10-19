@@ -7,7 +7,7 @@
 
 import Foundation
 
-class URLQuerySingleValueDecodingContainer: SingleValueDecodingContainer {
+final class URLQuerySingleValueDecodingContainer: SingleValueDecodingContainer {
     private var decoder: _URLQueryDecoder
     
     init(referencing decoder: _URLQueryDecoder) {

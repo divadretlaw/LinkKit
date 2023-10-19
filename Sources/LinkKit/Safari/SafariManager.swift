@@ -12,15 +12,17 @@ import UIKit
 import Combine
 
 /// Manages the presented `SFSafariViewController`s and their respective `UIWindow`s
-class SafariManager: NSObject, ObservableObject, SFSafariViewControllerDelegate {
-    static var shared = SafariManager()
+final class SafariManager: NSObject, ObservableObject, SFSafariViewControllerDelegate {
+    static let shared = SafariManager()
+    
+    var safariDidFinish: PassthroughSubject<SFSafariViewController, Never>
+    private var windows: [SFSafariViewController: UIWindow]
     
     override private init() {
+        safariDidFinish = .init()
+        windows = [:]
         super.init()
     }
-    
-    var safariDidFinish = PassthroughSubject<SFSafariViewController, Never>()
-    private var windows: [SFSafariViewController: UIWindow] = [:]
     
     @MainActor
     @discardableResult

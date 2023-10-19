@@ -7,7 +7,7 @@
 
 import Foundation
 
-class URLQuerySingleValueEncodingContainer: SingleValueEncodingContainer {
+final class URLQuerySingleValueEncodingContainer: SingleValueEncodingContainer {
     private var encoder: _URLQueryEncoder
     
     init(referencing encoder: _URLQueryEncoder) {

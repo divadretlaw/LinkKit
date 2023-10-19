@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class URLQueryEncoder {
+public final class URLQueryEncoder {
     public var nestedValueStrategy: NestedValueStrategy = .error
 
     public enum NestedValueStrategy {
@@ -55,7 +55,7 @@ extension URLQueryEncoder {
 }
 
 // swiftlint:disable:next type_name
-class _URLQueryEncoder: Encoder {
+final class _URLQueryEncoder: Encoder {
     var codingPath: [CodingKey]
     var storage: URLQueryStorage
     var options: URLQueryEncoder.Options

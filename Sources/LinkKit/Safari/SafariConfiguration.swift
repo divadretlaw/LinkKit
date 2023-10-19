@@ -38,22 +38,9 @@ public struct SafariConfiguration {
     func userInterfaceStyle(with colorScheme: ColorScheme) -> UIUserInterfaceStyle {
         switch overrideUserInterfaceStyle {
         case .unspecified:
-            return colorScheme.userInterfaceStyle
+            return UIUserInterfaceStyle(colorScheme)
         default:
             return overrideUserInterfaceStyle
-        }
-    }
-}
-
-extension ColorScheme {
-    var userInterfaceStyle: UIUserInterfaceStyle {
-        switch self {
-        case .light:
-            return .light
-        case .dark:
-            return .dark
-        @unknown default:
-            return .unspecified
         }
     }
 }

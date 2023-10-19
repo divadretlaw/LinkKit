@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import OSLog
 
 extension URL {
     /// Creates a Apple Maps URL instance from the provided data.
     ///
     /// - Parameters:
-    ///   - appleMaps: The Apple Maps Parameters. See ``AppleMapsParameter``.
-    ///   - preferUniversalLink: Wheter to create the URL using the universal link or url scheme. Defaults to `false`.
+    ///   - parameters: The Apple Maps Parameters. See ``AppleMapsParameter``.
+    ///   - preferUniversalLink: Whether to create the URL using the universal link or url scheme. Defaults to `false`.
     public static func appleMaps(parameters: AppleMapsParameter, preferUniversalLink: Bool = false) -> URL {
         var components: URLComponents
         
@@ -27,7 +28,7 @@ extension URL {
         do {
             components.queryItems = try URLQueryEncoder().encode(parameters)
         } catch {
-            print("Error: \(error.localizedDescription). This is a bug! Please file a report.")
+            Logger.url.error("\(error.localizedDescription). This is a bug! Please file a report.")
         }
         
         guard let url = components.url else {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class URLQueryKeyedEncodingContainer<Key>: KeyedEncodingContainerProtocol where Key: CodingKey {
+final class URLQueryKeyedEncodingContainer<Key>: KeyedEncodingContainerProtocol where Key: CodingKey {
     let encoder: _URLQueryEncoder
     
     init(referencing encoder: _URLQueryEncoder) {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension URL {
     public static func mail(email: String, parameters: MailParameter = MailParameter()) -> URL {
@@ -15,7 +16,7 @@ extension URL {
         do {
             components.queryItems = try URLQueryEncoder().encode(parameters)
         } catch {
-            print("Error: \(error.localizedDescription). This is a bug! Please file a report.")
+            Logger.url.error("\(error.localizedDescription). This is a bug! Please file a report.")
         }
         
         guard let url = components.url else {

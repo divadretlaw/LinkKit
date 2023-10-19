@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension URL {
     public static func whatsApp(number: String? = nil, parameters: WhatsAppParameter? = nil, preferUniversalLink: Bool = false) -> URL {
@@ -23,7 +24,7 @@ extension URL {
             do {
                 components.queryItems = try URLQueryEncoder().encode(parameters)
             } catch {
-                print("Error: \(error.localizedDescription). This is a bug! Please file a report.")
+                Logger.url.error("Error: \(error.localizedDescription). This is a bug! Please file a report.")
             }
         }
         

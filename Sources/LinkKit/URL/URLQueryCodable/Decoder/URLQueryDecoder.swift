@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class URLQueryDecoder {
+public final class URLQueryDecoder {
     init() {
     }
     
@@ -37,7 +37,7 @@ extension URLQueryDecoder {
 }
 
 // swiftlint:disable:next type_name
-class _URLQueryDecoder: Decoder {
+final class _URLQueryDecoder: Decoder {
     var storage: URLQueryStorage
     var codingPath: [CodingKey] = []
     var userInfo: [CodingUserInfoKey: Any] = [:]

@@ -9,7 +9,7 @@ import SwiftUI
 import SafariServices
 
 public extension View {
-    /// Registers a handler to invoke when a view wants to open a url.
+    /// Registers a handler to invoke when a open action is triggered.
     ///
     /// - Parameter handler: The closure to run for the given `URL`.
     ///   The closure takes a URL as input, and returns a `OpenURLAction.Result`
