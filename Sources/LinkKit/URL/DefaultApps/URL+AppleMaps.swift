@@ -125,6 +125,11 @@ extension URL {
         /// The screen span. Use the ``screenSpan`` parameter to specify a span around the search location specified by the ``searchLocation`` parameter.
         public var screenSpan: CoordinateSpan?
         
+        /// Initialize the Apple Maps parameters from the given url
+        ///
+        /// - Parameter url: The url to parse
+        ///
+        /// Will be `nil` if the url does not represent valid Apple Maps parameters
         public init?(url: URL) {
             if let hosts = AppleMaps.hosts, url.scheme(isAny: "https", "http") {
                 guard url.host(isAny: hosts), let query = url.internalQuery() else { return nil }
@@ -148,6 +153,7 @@ extension URL {
             }
         }
         
+        /// Initialize the Apple Maps parameters
         public init(
             mapType: MapType? = nil,
             query: String? = nil,

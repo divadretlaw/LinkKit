@@ -8,8 +8,14 @@
 import Foundation
 
 public protocol AppLink {
+    /// The type of the app link
     var type: AppLinkType { get }
     
+    /// Initialize this app link from the given url
+    ///
+    /// - Parameter url: The url to parse
+    ///
+    /// Will be `nil` if the given URL does not represent a valid app link
     init?(url: URL)
     
     /// Checks if the app link represents a default app.
@@ -52,6 +58,8 @@ public enum AppLinkType: CaseIterable, Equatable, Hashable, Codable {
     case appStore
     /// Apple Books
     case books
+    /// A generic browser
+    case browser
     /// Calculator
     case calculator
     /// Calendar
@@ -88,6 +96,8 @@ public enum AppLinkType: CaseIterable, Equatable, Hashable, Codable {
     case whatsApp
     /// YouTube
     case youTube
+    /// Firefox
+    case firefox
     
     var type: AppLink.Type {
         switch self {
@@ -97,6 +107,8 @@ public enum AppLinkType: CaseIterable, Equatable, Hashable, Codable {
             return URL.AppStore.self
         case .books:
             return URL.Books.self
+        case .browser:
+            return URL.Browser.self
         case .calculator:
             return URL.Calculator.self
         case .calendar:
@@ -133,6 +145,8 @@ public enum AppLinkType: CaseIterable, Equatable, Hashable, Codable {
             return URL.WhatsApp.self
         case .youTube:
             return URL.YouTube.self
+        case .firefox:
+            return URL.Firefox.self
         }
     }
     
@@ -158,7 +172,9 @@ extension URL {
     ///
     /// See ``AppLinkType``s for list of supported apps.
     public func app() -> (any AppLink)? {
-        if ["https", "http"].contains(scheme?.lowercased()) {
+        guard let scheme = scheme?.lowercased() else { return nil }
+        
+        if Browser.schemes.contains(scheme) {
             for appType in AppLinkType.allUniversalLinkCases {
                 if let value = appType.type.init(url: self) {
                     return value

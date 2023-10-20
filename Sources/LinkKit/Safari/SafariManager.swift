@@ -26,7 +26,11 @@ final class SafariManager: NSObject, ObservableObject, SFSafariViewControllerDel
     
     @MainActor
     @discardableResult
-    func present(_ safari: SFSafariViewController, on windowScene: UIWindowScene, userInterfaceStyle: UIUserInterfaceStyle = .unspecified) -> SFSafariViewController {
+    func present(
+        _ safari: SFSafariViewController,
+        on windowScene: UIWindowScene,
+        userInterfaceStyle: UIUserInterfaceStyle = .unspecified
+    ) -> SFSafariViewController {
         safari.delegate = self
         windowScene.windows.forEach { $0.endEditing(true) }
         let (window, viewController) = setup(windowScene: windowScene, userInterfaceStyle: userInterfaceStyle)
@@ -35,7 +39,10 @@ final class SafariManager: NSObject, ObservableObject, SFSafariViewControllerDel
         return safari
     }
     
-    private func setup(windowScene: UIWindowScene, userInterfaceStyle: UIUserInterfaceStyle) -> (UIWindow, UIViewController) {
+    private func setup(
+        windowScene: UIWindowScene,
+        userInterfaceStyle: UIUserInterfaceStyle
+    ) -> (window: UIWindow, viewController: UIViewController) {
         let window = UIWindow(windowScene: windowScene)
         
         let viewController = UIViewController()

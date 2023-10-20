@@ -14,7 +14,7 @@ public extension URL {
     var supportsSafari: Bool {
         guard let scheme = scheme?.lowercased() else { return false }
         
-        if ["https", "http"].contains(scheme) {
+        if Browser.schemes.contains(scheme) {
             return !AppLinkType.allUniversalLinkCases.contains { $0.type.check(against: self) }
         } else {
             return false

@@ -14,7 +14,7 @@ final class URL_DefaultApp_AppStore: XCTestCase {
         let url = URL.appStore(parameters: parameters)
         
         XCTAssertEqual(url.scheme, "itms-apps")
-        XCTAssertEqual(url.absoluteString, "itms-apps://apps.apple.com/app/apple-store/id375380948")
+        XCTAssertEqual(url.absoluteString, "itms-apps://apps.apple.com/app/id375380948")
     }
     
     func testInit() throws {
@@ -22,7 +22,15 @@ final class URL_DefaultApp_AppStore: XCTestCase {
         let url = URL.appStore(parameters: parameters, preferUniversalLink: true)
         
         XCTAssertEqual(url.scheme, "https")
-        XCTAssertEqual(url.absoluteString, "https://apps.apple.com/app/apple-store/id375380948")
+        XCTAssertEqual(url.absoluteString, "https://apps.apple.com/app/id375380948")
+    }
+    
+    func testInitCountryCode() throws {
+        let parameters = URL.AppStoreParameter(id: 375380948, countryCode: "at")
+        let url = URL.appStore(parameters: parameters, preferUniversalLink: true)
+        
+        XCTAssertEqual(url.scheme, "https")
+        XCTAssertEqual(url.absoluteString, "https://apps.apple.com/at/app/id375380948")
     }
     
     func testiTunes() throws {
