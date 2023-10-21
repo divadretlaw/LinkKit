@@ -7,10 +7,13 @@
 
 import Foundation
 
+/// An object that decodes instances of a data type from URL query objects.
 public final class URLQueryDecoder {
-    init() {
+    /// Creates a new, reusable URL query decoder with the default formatting settings and decoding strategies.
+    public init() {
     }
     
+    /// Returns a value of the type you specify, decoded from a URL query object.
     public func decode<T>(_ type: T.Type, from string: String) throws -> T where T: Decodable {
         var components: [String: String] = [:]
         for component in string.split(separator: "&") {
@@ -21,6 +24,7 @@ public final class URLQueryDecoder {
         return try T(from: _URLQueryDecoder(referencing: components))
     }
     
+    /// Returns a value of the type you specify, decoded from a URL query object.
     public func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
         guard let string = String(data: data, encoding: .utf8) else {
             throw URLQueryDecoder.Error.dataCorrupted
@@ -42,13 +46,18 @@ final class _URLQueryDecoder: Decoder {
     var codingPath: [CodingKey] = []
     var userInfo: [CodingUserInfoKey: Any] = [:]
     
+    init(referencing container: URLQueryStorage, at codingPath: [CodingKey] = []) {
+        self.storage = container
+        self.codingPath = codingPath
+    }
+    
     init(referencing container: [String: String], at codingPath: [CodingKey] = []) {
         self.storage = URLQueryStorage(container: container)
         self.codingPath = codingPath
     }
     
     func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key: CodingKey {
-        let container = URLQueryKeyedDecodingContainer<Key>(referencing: self, wrapping: storage.container)
+        let container = URLQueryKeyedDecodingContainer<Key>(referencing: self, wrapping: storage)
         return KeyedDecodingContainer(container)
     }
     

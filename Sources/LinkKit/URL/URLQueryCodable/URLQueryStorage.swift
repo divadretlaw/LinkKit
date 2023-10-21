@@ -7,13 +7,22 @@
 
 import Foundation
 
-struct URLQueryStorage {
+struct URLQueryStorage: Sequence {
     private var stack: [String]
-    var container: [String: String]
+    private var container: [String: String]
     
     init(container: [String: String]) {
         self.container = container
         self.stack = []
+    }
+    
+    subscript(key: String) -> String? {
+        get {
+            container[key]
+        }
+        set {
+            container[key] = newValue
+        }
     }
     
     var isEmpty: Bool {
@@ -26,5 +35,21 @@ struct URLQueryStorage {
     
     mutating func pop() -> String {
         stack.removeLast()
+    }
+    
+    // MARK: - Dictionary
+    
+    var keys: Dictionary<String, String>.Keys {
+        container.keys
+    }
+    
+    var values: Dictionary<String, String>.Values {
+        container.values
+    }
+    
+    // MARK: - Sequence
+    
+    func makeIterator() -> Dictionary<String, String>.Iterator {
+        container.makeIterator()
     }
 }

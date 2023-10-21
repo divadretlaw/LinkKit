@@ -7,11 +7,11 @@
 
 import Foundation
 
-class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where Key: CodingKey {
+final class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where Key: CodingKey {
     private var decoder: _URLQueryDecoder
-    private var container: [String: String]
+    private var container: URLQueryStorage
     
-    init(referencing decoder: _URLQueryDecoder, wrapping container: [String: String]) {
+    init(referencing decoder: _URLQueryDecoder, wrapping container: URLQueryStorage) {
         self.decoder = decoder
         self.container = container
     }
@@ -49,7 +49,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Bool.Type, forKey key: Key) throws -> Bool {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
 
@@ -57,14 +57,14 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: String.Type, forKey key: Key) throws -> String {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         return value
     }
     
     func decode(_ type: Double.Type, forKey key: Key) throws -> Double {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Double(value) else {
@@ -74,7 +74,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Float.Type, forKey key: Key) throws -> Float {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Float(value) else {
@@ -84,7 +84,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Int.Type, forKey key: Key) throws -> Int {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Int(value) else {
@@ -94,7 +94,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Int8.Type, forKey key: Key) throws -> Int8 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Int8(value) else {
@@ -104,7 +104,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Int16.Type, forKey key: Key) throws -> Int16 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Int16(value) else {
@@ -114,7 +114,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Int32.Type, forKey key: Key) throws -> Int32 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Int32(value) else {
@@ -124,7 +124,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: Int64.Type, forKey key: Key) throws -> Int64 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = Int64(value) else {
@@ -134,7 +134,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: UInt.Type, forKey key: Key) throws -> UInt {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = UInt(value) else {
@@ -144,7 +144,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: UInt8.Type, forKey key: Key) throws -> UInt8 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = UInt8(value) else {
@@ -154,7 +154,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: UInt16.Type, forKey key: Key) throws -> UInt16 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = UInt16(value) else {
@@ -164,7 +164,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: UInt32.Type, forKey key: Key) throws -> UInt32 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = UInt32(value) else {
@@ -174,7 +174,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode(_ type: UInt64.Type, forKey key: Key) throws -> UInt64 {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         guard let converted = UInt64(value) else {
@@ -184,7 +184,7 @@ class URLQueryKeyedDecodingContainer<Key>: KeyedDecodingContainerProtocol where 
     }
     
     func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T: Decodable {
-        guard let value = decoder.storage.container[key.stringValue] else {
+        guard let value = decoder.storage[key.stringValue] else {
             throw notFoundError(key: key)
         }
         decoder.storage.push(value)
