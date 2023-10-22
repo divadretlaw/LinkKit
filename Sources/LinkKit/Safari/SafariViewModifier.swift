@@ -18,7 +18,7 @@ public extension View {
     ///          When the `url` is non-`nil` and the given `url` is supported the
     ///          `SFSafariViewController` will be displayed.
     ///
-    /// The `SFSafariViewController` will be displayed in its own `UIWindow` within the current views `UIWindowScene`.
+    /// The `SFSafariViewController` will be displayed in its own `UIWindow` within the current view's `UIWindowScene`.
     func safari(url: Binding<URL?>) -> some View {
         modifier(SafariViewModifier(url: url, configure: nil))
     }
@@ -31,7 +31,7 @@ public extension View {
     ///          `SFSafariViewController` will be displayed.
     ///   - configure: A closure to configure the presentation of `SFSafariViewController`.
     ///
-    /// The `SFSafariViewController` will be displayed in its own `UIWindow` within the current views `UIWindowScene`.
+    /// The `SFSafariViewController` will be displayed in its own `UIWindow` within the current view's `UIWindowScene`.
     func safari(url: Binding<URL?>, configure: @escaping (inout SafariConfiguration) -> Void) -> some View {
         modifier(SafariViewModifier(url: url, configure: configure))
     }
